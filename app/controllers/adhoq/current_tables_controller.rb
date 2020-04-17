@@ -14,6 +14,7 @@ module Adhoq
       hidden_model_names << 'CountriesPaymentMethod' # hbtm
       hidden_model_names << 'SutorMessage'
       hidden_model_names << 'SutorReconciliation'
+      hidden_model_names << 'SutorAccount'
       hidden_model_names << 'PartnerOrdersSutorReconciliation'
       hidden_model_names << 'BankTransactionsOrder' 
       hidden_model_names << 'Version' # papertrail
