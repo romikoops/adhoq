@@ -1,0 +1,27 @@
+<div class="col-md-12">
+	<ol class="breadcrumb">
+		<li><%= link_to 'Hidden Tables', hidden_tables_path %></li>
+		<li class="active">Edit #<%= @hidden_table.id %></li>
+	</ol>
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <h1>Edit Hidden Table</h1>
+
+      <%= bootstrap_form_for(@hidden_table, as: :hidden_table, url: hidden_table_path(@hidden_table), style: :vertical) do |f| %>
+        <div class="panel panel-default">
+          <div class="panel-heading">General</div>
+          <div class="panel-body">
+            <%= f.text_field :name %>
+          </div>
+        </div>
+
+        <%= f.form_group do %>
+          <%= f.submit nil %>
+        <% end %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

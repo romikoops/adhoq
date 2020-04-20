@@ -9,11 +9,11 @@ module Adhoq
 
     def generate_report!
       build_report.generate!
-      update(status: :success)
+      update!(status: :success)
     rescue => e
       Rails.logger.error(e)
       self.report = nil
-      update(status: :failure)
+      update!(status: :failure)
     end
 
     def name

@@ -19,8 +19,10 @@
 	<style type="text/css">
 		<%= Rouge::Themes::Github.render(scope: '.highlight') %>
 	</style>
-
-	<%= raw query.query_with_highlight %>
+  
+	<div class="highlight query">
+	  <%= raw query.query_with_highlight.sub("\n", "<br/>") %>
+	</div>
 
 	<section class="new-execution">
 		<h2>Create report</h2>

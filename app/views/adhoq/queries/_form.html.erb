@@ -62,7 +62,7 @@
 		<% end %>
 
 		<div class="pull-right">
-			<%= link_to '#nameAndDesc', class: 'btn btn-default btn-sm', data: {toggle: 'modal', target: '#nameAndDesc'} do %>
+			<%= link_to '#nameAndDesc', class: 'btn btn-default btn-sm', onclick: 'window.editor.save()', data: {toggle: 'modal', target: '#nameAndDesc'} do %>
 				<i class="fa fa-floppy-o fa-pad-r"></i>Save as...
 			<% end %>
 		</div>
@@ -87,7 +87,7 @@
 	<div class="tab-pane active" id="preview">
 		<h3>Query preview
 			<small>
-				<%= link_to preview_path, class: 'js-preview-button', data: {source: '#query_query', result: '.js-preview-result', remote: true, method: 'POST'} do %>
+				<%= link_to preview_path, class: 'js-preview-button', onclick: 'window.editor.save()', data: {source: '#query_query', result: '.js-preview-result', remote: true, method: 'POST'} do %>
 					<i class="fa fa-refresh fa-pad-r" data-title="Refresh preview"></i> Refresh
 				<% end %>
 			</small>
@@ -99,7 +99,7 @@
 	<div class="tab-pane" id="explain">
 		<h3>Query explain
 			<small>
-				<%= link_to explain_path, class: 'js-explain-button', data: {source: '#query_query', result: '.js-explain-result', remote: true, method: 'POST'} do %>
+				<%= link_to explain_path, class: 'js-explain-button', onclick: 'window.editor.save()', data: {source: '#query_query', result: '.js-explain-result', remote: true, method: 'POST'} do %>
 					<i class="fa fa-refresh fa-pad-r" data-title="Refresh explain"></i> Refresh
 				<% end %>
 			</small>
@@ -111,14 +111,32 @@
 </div>
 <script>
 	$(function() {
-	
 	  Adhoq.enablePreview($('#preview a.js-preview-button'));
-	
 	  Adhoq.enablePreview($('#explain a.js-explain-button'));
-	
-	
-	
-	  Adhoq.enablePreviewKeybordShortCut($('#query_query'), '#previews .tab-pane.active a:has(".fa-refresh")')
-	
+	  Adhoq.enablePreviewKeybordShortCut($('#query_query'), '#previews .tab-pane.active a:has(".fa-refresh")');	
 	});
+
+	window.onload = function(){
+		window.editor = CodeMirror.fromTextArea(document.getElementById('query_query'), {
+			lineNumbers: true,
+			indentWithTabs: true,
+			smartIndent: true,
+			matchBrackets : true,
+			autofocus: true,
+			extraKeys: {"Ctrl-Space": "autocomplete"},
+			mode: "text/x-pgsql"
+		});
+
+		if (window.editor.getValue() === "") {
+			var initSql = '-- SQL Example:\n\n' +
+			'SELECT id,\n' + 
+			'       email,\n' +
+			'       first_name AS Vorname,\n' +
+			'       last_name AS Nachname\n' +
+			'FROM customers\n' +
+			'WHERE created_at BETWEEN \'2015-01-01\' AND \'2025-12-31 23:59:59\''
+			'ORDER BY email;';
+			window.editor.setValue(initSql);
+		}
+	};
 </script>
