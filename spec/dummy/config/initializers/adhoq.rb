@@ -11,7 +11,18 @@ Adhoq.configure do |c|
     {
       aws_access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
       aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-      region:               'us-east-1',
+      region:               'us-east-1'
+    }
+  ]
+
+  # Google setting example
+  c.storage       = [
+    :google,
+    ENV['GOOGLE_STORAGE_REPORTING_BUCKET'] || 'my-bucket',
+    {
+      google_storage_key_id:     ENV['GOOGLE_STORAGE_ACCESS_KEY_ID'],
+      google_storage_access_key: ENV['GOOGLE_STORAGE_SECRET_ACCESS_KEY'],
+      region:                    'europe-west4'
     }
   ]
 =end

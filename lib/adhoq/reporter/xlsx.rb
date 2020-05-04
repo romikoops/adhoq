@@ -1,4 +1,4 @@
-require 'axlsx'
+require 'caxlsx'
 
 module Adhoq
   module Reporter

@@ -3,6 +3,7 @@ module Adhoq
     autoload 'FogStorage', 'adhoq/storage/fog_storage'
     autoload 'LocalFile',  'adhoq/storage/local_file'
     autoload 'S3',         'adhoq/storage/s3'
+    autoload 'Google',     'adhoq/storage/google'
     autoload 'OnTheFly',   'adhoq/storage/on_the_fly'
     autoload 'Cache',      'adhoq/storage/cache'
 

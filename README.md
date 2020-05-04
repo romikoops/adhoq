@@ -98,6 +98,14 @@ storage   = Storage::S3.new(
   aws_secret_access_key: 'access_key'
 )
 
+# or
+
+storage   = Storage::Google.new(
+  'my-adhoq-bucket',
+  google_storage_access_key_id: 'key_id',
+  google_storage_secret_access_key: 'access_key'
+)
+
 # generate report and store it to S3, returns `key` to get report data
 key = storage.store('.xlsx') { Adhoq::Reporter.generate(execution) }
 

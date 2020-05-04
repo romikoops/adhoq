@@ -33,5 +33,15 @@ module Adhoq
         expect(Adhoq.current_storage).to be_instance_of Adhoq::Storage::S3
       end
     end
+
+    context 'config.storage = [:google, ....]' do
+      before do
+        reset_storage_config(:google, 'my-bucket-name', google_storage_access_key_id: 'key-id', google_storage_secret_access_key: 'secret', region: 'paris-01')
+      end
+
+      specify do
+        expect(Adhoq.current_storage).to be_instance_of Adhoq::Storage::Google
+      end
+    end
   end
 end

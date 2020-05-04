@@ -26,6 +26,16 @@ module Adhoq
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
     end
 
+    describe Storage::Google, :fog_mock do
+      let(:storage) { Storage::Google.new('my_adhoq_bucket', google_storage_access_key_id: 'key_id', google_storage_secret_access_key: 'access_key') }
+
+      let(:identifier) do
+        storage.store('.txt') { StringIO.new("Hello adhoq!\n") }
+      end
+
+      specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
+    end
+
     describe Storage::OnTheFly do
       let(:storage) { Storage::OnTheFly.new }
 

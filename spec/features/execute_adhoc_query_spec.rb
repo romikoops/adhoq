@@ -2,7 +2,7 @@ feature 'Golden-path: execute adhoc query' do
   include FeatureSpecHelper
 
   def create_query(query_text, preview: true)
-    fill_in 'New query', with: query_text
+    fill_new_query(query_text)
 
     if preview
       click_on 'Preview'
@@ -25,6 +25,10 @@ feature 'Golden-path: execute adhoc query' do
     expect(page).to have_content('Create report')
   end
 
+  def fill_new_query(query_text)
+    execute_script("window.editor.setValue('#{query_text}')")
+  end
+
   def create_simple_query
     create_query('SELECT 42 AS "answer number", "Hello adhoq" AS message')
   end
@@ -35,8 +39,7 @@ feature 'Golden-path: execute adhoc query' do
 
   scenario 'Visit root, input query and click explain then we get a EXPLAIN query result' do
     visit '/adhoq'
-
-    fill_in 'New query', with: 'SELECT * from adhoq_queries'
+    fill_new_query('SELECT * from adhoq_queries')
 
     click_on 'Explain'
     click_on 'Refresh'
@@ -88,8 +91,8 @@ feature 'Golden-path: execute adhoc query' do
 
   scenario 'Visit root and input invalid query then we get a error message' do
     visit '/adhoq'
-
-    fill_in 'New query', with: 'SELECT * from adhoq_queries_xxx'
+    
+    fill_new_query('SELECT * from adhoq_queries_xxx')
 
     click_on 'Refresh'
     expect(find('.js-preview-result')).to have_content(/SQLite3::SQLException/)
@@ -98,7 +101,7 @@ feature 'Golden-path: execute adhoc query' do
   scenario 'Visit root, input invalid query and click explain then we get a error message' do
     visit '/adhoq'
 
-    fill_in 'New query', with: 'SELECT * from adhoq_queries_xxx'
+    fill_new_query('SELECT * from adhoq_queries_xxx')
 
     click_on 'Explain'
     click_on 'Refresh'
