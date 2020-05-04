@@ -2,7 +2,6 @@ module Adhoq
   class ExecutionsController < Adhoq::ApplicationController
     def show
       @execution = current_query.executions.where(id: params[:id], report_format: params[:format]).first!
-
       respond_report(@execution.report)
     end
 

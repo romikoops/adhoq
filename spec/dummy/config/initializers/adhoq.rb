@@ -20,9 +20,9 @@ Adhoq.configure do |c|
     :google,
     ENV['GOOGLE_STORAGE_REPORTING_BUCKET'] || 'my-bucket',
     {
-      google_storage_key_id:     ENV['GOOGLE_STORAGE_ACCESS_KEY_ID'],
-      google_storage_access_key: ENV['GOOGLE_STORAGE_SECRET_ACCESS_KEY'],
-      region:                    'europe-west4'
+      google_storage_key_id:            ENV['GOOGLE_STORAGE_ACCESS_KEY_ID'],
+      google_storage_secret_access_key: ENV['GOOGLE_STORAGE_SECRET_ACCESS_KEY'],
+      region:                           'europe-west4'
     }
   ]
 =end
