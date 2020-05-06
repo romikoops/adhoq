@@ -18,7 +18,7 @@ module Adhoq
       end
 
       specify do
-        expect(report.name).to match(/#{query.name}\.[\d\-]+\.xlsx/)
+        expect(report.name).to match(/#{query.slug}\.[\d\-]+\.xlsx/)
       end
     end
   end

@@ -17,7 +17,7 @@ module Adhoq
     end
 
     def name
-      [query.name, created_at.strftime('%Y%m%d-%H%M%S'), report_format].join('.')
+      [query.slug, created_at.strftime('%Y%m%d-%H%M%S'), report_format].join('.')
     end
 
     def success?
