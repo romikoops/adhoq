@@ -13,9 +13,10 @@ module Adhoq
     end
 
     def create
-      @query = Adhoq::Query.create!(query_attributes)
+      @query = Adhoq::Query.new(query_attributes)
+      @query.save
 
-      redirect_to @query
+      render action: :create
     end
 
     def edit
@@ -24,9 +25,8 @@ module Adhoq
 
     def update
       @query = Adhoq::Query.find(params[:id])
-      @query.update!(query_attributes)
-
-      redirect_to @query
+      @query.update(query_attributes)
+      render action: :update
     end
 
     def destroy
@@ -37,7 +37,7 @@ module Adhoq
     private
 
     def query_attributes
-      params.require(:query).permit(:name, :description, :query)
+      params.require(:query).permit(:slug, :name, :description, :query)
     end
   end
 end

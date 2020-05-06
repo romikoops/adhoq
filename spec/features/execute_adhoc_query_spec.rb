@@ -18,6 +18,7 @@ feature 'Golden-path: execute adhoc query' do
     end
 
     click_on 'Save as...'
+    fill_in  'Slug', with: Time.zone.now.to_i.to_s
     fill_in  'Name',        with: 'My new query'
     fill_in  'Description', with: 'Description about this query'
 

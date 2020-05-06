@@ -4,6 +4,8 @@ module Adhoq
 
     has_many :executions, dependent: :destroy, inverse_of: :query
 
+    validates :slug, presence: true, uniqueness: true
+
     PARAMETER_PATTERN = /\$(?<name>\w+)|\${(?<name>\w+)}/i.freeze
 
     def execute!(report_format, query_parameters = {})

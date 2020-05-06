@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_04_19_221608) do
   end
 
   create_table "adhoq_queries", force: :cascade do |t|
+    t.string "slug", null: false
     t.string "name"
     t.string "description"
     t.text "query"

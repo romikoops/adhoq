@@ -4,6 +4,7 @@ migration_class = (major > 5 || major == 5 && minor >= 1) ? ActiveRecord::Migrat
 class CreateAdhoqQueries < migration_class
   def change
     create_table :adhoq_queries do |t|
+      t.string :slug, null: false
       t.string :name
       t.string :description
       t.text :query
