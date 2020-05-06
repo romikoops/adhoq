@@ -9,10 +9,10 @@ module Adhoq
     PARAMETER_PATTERN = /\$(?<name>\w+)|\${(?<name>\w+)}/i.freeze
 
     def execute!(report_format, query_parameters = {})
-      executions.create! {|exe|
+      executions.create! do |exe|
         exe.report_format = report_format
         exe.raw_sql       = substitute_query(query_parameters)
-      }.tap(&:generate_report!)
+      end.tap(&:generate_report!)
     end
 
     def parameters
@@ -29,8 +29,8 @@ module Adhoq
       return query if parameters.empty?
 
       query_parameters = query_parameters.with_indifferent_access
-      query.gsub(PARAMETER_PATTERN) do |_, arr|
-        name = Regexp.last_match["name"]
+      query.gsub(PARAMETER_PATTERN) do |_, _arr|
+        name = Regexp.last_match['name']
         query_parameters[name]
       end
     end

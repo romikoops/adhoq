@@ -1,5 +1,5 @@
 module Adhoq
-  RSpec.describe Execution, :type => :model do
+  RSpec.describe Execution, type: :model do
     before do
       storage = Adhoq::Storage::OnTheFly.new
       allow(Adhoq).to receive(:current_storage) { storage }
@@ -14,9 +14,9 @@ module Adhoq
 
     specify 'can get report only on execution' do
       expect(execution.report.data).to have_values_in_xlsx_sheet([
-        ["name",    "description"],
-        ["A query", "Simple simple SELECT"]
-      ])
+                                                                   %w[name description],
+                                                                   ['A query', 'Simple simple SELECT']
+                                                                 ])
 
       # Accessable only once
       expect(execution.report.data).to be_nil

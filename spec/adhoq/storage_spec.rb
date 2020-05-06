@@ -17,7 +17,9 @@ module Adhoq
     end
 
     describe Storage::S3, :fog_mock do
-      let(:storage) { Storage::S3.new('my-adhoq-bucket', aws_access_key_id: 'key_id', aws_secret_access_key: 'access_key') }
+      let(:storage) do
+        Storage::S3.new('my-adhoq-bucket', aws_access_key_id: 'key_id', aws_secret_access_key: 'access_key')
+      end
 
       let(:identifier) do
         storage.store('.txt') { StringIO.new("Hello adhoq!\n") }
@@ -27,7 +29,13 @@ module Adhoq
     end
 
     describe Storage::Google, :fog_mock do
-      let(:storage) { Storage::Google.new('my_adhoq_bucket', google_storage_access_key_id: 'key_id', google_storage_secret_access_key: 'access_key') }
+      let(:storage) do
+        Storage::Google.new(
+          'my_adhoq_bucket',
+          google_storage_access_key_id: 'key_id',
+          google_storage_secret_access_key: 'access_key'
+        )
+      end
 
       let(:identifier) do
         storage.store('.txt') { StringIO.new("Hello adhoq!\n") }

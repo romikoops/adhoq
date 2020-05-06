@@ -26,9 +26,9 @@ module Adhoq
 
       def reporters
         @reporters ||= {
-          'csv'  => Adhoq::Reporter::Csv,
+          'csv' => Adhoq::Reporter::Csv,
           'json' => Adhoq::Reporter::Json,
-          'xlsx' => Adhoq::Reporter::Xlsx,
+          'xlsx' => Adhoq::Reporter::Xlsx
         }
       end
     end

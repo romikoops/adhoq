@@ -7,7 +7,7 @@ module Adhoq
         @bucket                  = bucket
         @direct_download         = s3_options.delete(:direct_download)
         @direct_download_options = s3_options.delete(:direct_download_options) || default_direct_download_options
-        @s3 = Fog::Storage.new({provider: 'AWS'}.merge(s3_options))
+        @s3 = Fog::Storage.new({ provider: 'AWS' }.merge(s3_options))
       end
 
       def direct_download?
@@ -35,10 +35,11 @@ module Adhoq
 
       def default_direct_download_options
         proc do |report|
+          value = URI.encode_www_form_component(report.name)
           {
             query: {
-              'response-content-disposition' => "attachment; filename*=UTF-8''#{URI.encode_www_form_component(report.name)}",
-              'response-content-type' => report.mime_type,
+              'response-content-disposition' => "attachment; filename*=UTF-8''#{value}",
+              'response-content-type' => report.mime_type
             }
           }
         end

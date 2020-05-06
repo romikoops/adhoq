@@ -10,7 +10,7 @@ module Adhoq
     def generate_report!
       build_report.generate!
       update!(status: :success)
-    rescue => e
+    rescue StandardError => e
       Rails.logger.error(e)
       self.report = nil
       update!(status: :failure)
@@ -21,7 +21,7 @@ module Adhoq
     end
 
     def success?
-      report.try(:available?) || status == "success"
+      report.try(:available?) || status == 'success'
     end
   end
 end

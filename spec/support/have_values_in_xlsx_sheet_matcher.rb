@@ -7,7 +7,6 @@ RSpec::Matchers.define :have_values_in_xlsx_sheet do |expect_values|
     expect(@actual_values).to eq expect_values
   end
 
-
   failure_message do
     RSpec::Expectations.differ.diff_as_object(@actual_values, expect_values)
   end

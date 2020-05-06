@@ -1,6 +1,6 @@
 module Adhoq
   class CurrentTable
-    def self.all(exclude_tables: [])
+    def self.all(*)
       connection = Adhoq.config.callablize(:database_connection).call
       (connection.tables - HiddenTable.pluck(:name)).sort.map do |table_name|
         new(table_name, connection)
@@ -39,7 +39,7 @@ module Adhoq
     def column_data(column)
       OpenStruct.new(
         primary_key?: primary_keys.include?(column.name),
-        foreign_key?:  column.name.match?(/_id\z/),
+        foreign_key?: column.name.match?(/_id\z/),
         name: column.name,
         type: column.type,
         null?: column.null,

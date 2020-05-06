@@ -1,4 +1,4 @@
-# TODO where to write?
+# TODO: where to write?
 require 'font-awesome-sass'
 require 'jquery-rails'
 require 'active_decorator'

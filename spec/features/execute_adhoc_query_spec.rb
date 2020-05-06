@@ -63,9 +63,9 @@ feature 'Golden-path: execute adhoc query' do
 
     # NOTE xlsx parser casts "42" to 42.0
     expect(Adhoq::Report.order('id DESC').first.data).to have_values_in_xlsx_sheet([
-      ['answer number', 'message'],
-      [42.0,            'Hello adhoq']
-    ])
+                                                                                     ['answer number', 'message'],
+                                                                                     [42.0, 'Hello adhoq']
+                                                                                   ])
   end
 
   scenario 'Visit root, input placeholdered query and generate report then we get a report' do
@@ -75,7 +75,7 @@ feature 'Golden-path: execute adhoc query' do
 
     within '.new-execution' do
       select   'xlsx', from: 'Report format'
-      fill_in  'num',  with: "10"
+      fill_in  'num',  with: '10'
       click_on 'Create report'
     end
 
@@ -85,14 +85,14 @@ feature 'Golden-path: execute adhoc query' do
 
     # NOTE xlsx parser casts "42" to 42.0
     expect(Adhoq::Report.order('id DESC').first.data).to have_values_in_xlsx_sheet([
-      ['answer number', 'message'],
-      [10.0,            'Hello adhoq']
-    ])
+                                                                                     ['answer number', 'message'],
+                                                                                     [10.0, 'Hello adhoq']
+                                                                                   ])
   end
 
   scenario 'Visit root and input invalid query then we get a error message' do
     visit '/adhoq'
-    
+
     fill_new_query('SELECT * from adhoq_queries_xxx')
 
     click_on 'Refresh'
@@ -110,18 +110,18 @@ feature 'Golden-path: execute adhoc query' do
   end
 
   if defined?(ActiveJob)
-    context "async_execution feature is ON", async_execution: true,  active_job_test_adapter: true do
+    context 'async_execution feature is ON', async_execution: true, active_job_test_adapter: true do
       scenario 'Visit root, input query and generate report then we get a report' do
         visit '/adhoq'
 
         create_simple_query
 
-        expect {
+        expect do
           within '.new-execution' do
             select   'xlsx', from: 'Report format'
             click_on 'Create report'
           end
-        }.to change { Adhoq::ExecuteJob.queue_adapter.performed_jobs.size }.from(0).to(1)
+        end.to change { Adhoq::ExecuteJob.queue_adapter.performed_jobs.size }.from(0).to(1)
 
         within '.past-executions' do
           expect(table_contant('table.executions').size).to eq 2
@@ -129,9 +129,9 @@ feature 'Golden-path: execute adhoc query' do
 
         # NOTE xlsx parser casts "42" to 42.0
         expect(Adhoq::Report.order('id DESC').first.data).to have_values_in_xlsx_sheet([
-          ['answer number', 'message'],
-          [42.0,            'Hello adhoq']
-        ])
+                                                                                         ['answer number', 'message'],
+                                                                                         [42.0, 'Hello adhoq']
+                                                                                       ])
       end
 
       scenario 'Visit root, input placeholdered query and generate report then we get a report' do
@@ -139,13 +139,13 @@ feature 'Golden-path: execute adhoc query' do
 
         create_placeholdered_query
 
-        expect {
+        expect do
           within '.new-execution' do
             select   'xlsx', from: 'Report format'
-            fill_in  'num',  with: "10"
+            fill_in  'num',  with: '10'
             click_on 'Create report'
           end
-        }.to change { Adhoq::ExecuteJob.queue_adapter.performed_jobs.size }.from(0).to(1)
+        end.to change { Adhoq::ExecuteJob.queue_adapter.performed_jobs.size }.from(0).to(1)
 
         within '.past-executions' do
           expect(table_contant('table.executions').size).to eq 2
@@ -153,24 +153,24 @@ feature 'Golden-path: execute adhoc query' do
 
         # NOTE xlsx parser casts "42" to 42.0
         expect(Adhoq::Report.order('id DESC').first.data).to have_values_in_xlsx_sheet([
-          ['answer number', 'message'],
-          [10.0,            'Hello adhoq']
-        ])
+                                                                                         ['answer number', 'message'],
+                                                                                         [10.0, 'Hello adhoq']
+                                                                                       ])
       end
     end
 
-    context "async_execution feature is OFF", async_execution: false,  active_job_test_adapter: true do
+    context 'async_execution feature is OFF', async_execution: false, active_job_test_adapter: true do
       scenario 'Visit root, input query and generate report then we get a report' do
         visit '/adhoq'
 
         create_simple_query
 
-        expect {
+        expect do
           within '.new-execution' do
             select   'xlsx', from: 'Report format'
             click_on 'Create report'
           end
-        }.not_to change { Adhoq::ExecuteJob.queue_adapter.performed_jobs.size }.from(0)
+        end.not_to change { Adhoq::ExecuteJob.queue_adapter.performed_jobs.size }.from(0)
 
         within '.past-executions' do
           expect(table_contant('table.executions').size).to eq 2
@@ -178,9 +178,9 @@ feature 'Golden-path: execute adhoc query' do
 
         # NOTE xlsx parser casts "42" to 42.0
         expect(Adhoq::Report.order('id DESC').first.data).to have_values_in_xlsx_sheet([
-          ['answer number', 'message'],
-          [42.0,            'Hello adhoq']
-        ])
+                                                                                         ['answer number', 'message'],
+                                                                                         [42.0, 'Hello adhoq']
+                                                                                       ])
       end
     end
   end

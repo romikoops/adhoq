@@ -44,7 +44,7 @@ module Adhoq
 
     def query_parameters
       if params[:parameters]
-        if params[:parameters].kind_of?(Hash)
+        if params[:parameters].is_a?(Hash)
           params[:parameters]
         else
           # for after Rails5

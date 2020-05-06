@@ -7,12 +7,12 @@ module Adhoq
     end
 
     def current_storage
-      synchronize {
+      synchronize do
         @current_storage ||= setup_storage(*Adhoq.config.storage)
-      }
+      end
     end
 
-    def configure(&block)
+    def configure
       yield config
     end
 
@@ -22,7 +22,7 @@ module Adhoq
 
     private
 
-    def setup_storage(type, *args)
+    def setup_storage(type, *args) # rubocop:disable Metrics/MethodLength
       klass =
         case type
         when :local_file then Adhoq::Storage::LocalFile

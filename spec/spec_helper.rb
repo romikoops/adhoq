@@ -10,7 +10,7 @@ require 'factory_bot_rails'
 require 'pry-byebug'
 
 Rails.backtrace_cleaner.remove_silencers!
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f }
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].sort.each { |f| require f }
 
 Capybara.default_driver = :poltergeist
 
@@ -29,9 +29,7 @@ RSpec.configure do |config|
 
   config.warnings = ENV['SHOW_WARNING']
 
-  if config.files_to_run.one?
-    config.default_formatter = 'doc'
-  end
+  config.default_formatter = 'doc' if config.files_to_run.one?
 
   config.profile_examples = 10
   config.order = :random

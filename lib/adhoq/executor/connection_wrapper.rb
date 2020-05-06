@@ -1,8 +1,7 @@
 module Adhoq
   class Executor
     class ConnectionWrapper
-      def initialize
-      end
+      def initialize; end
 
       def select(query)
         with_sandbox do |connection|

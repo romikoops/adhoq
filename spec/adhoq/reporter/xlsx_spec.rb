@@ -9,9 +9,9 @@ module Adhoq
 
       specify do
         expect(report_data.read).to have_values_in_xlsx_sheet([
-          %w[name description],
-          ['hello', 'English greeting message']
-        ])
+                                                                %w[name description],
+                                                                ['hello', 'English greeting message']
+                                                              ])
       end
     end
   end

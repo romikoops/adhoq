@@ -3,7 +3,6 @@ require 'csv'
 module Adhoq
   module Reporter
     class Csv
-
       def self.mime_type
         'text/csv; charset=UTF-8'
       end
@@ -17,7 +16,7 @@ module Adhoq
         csv  = CSV.new(file)
 
         csv << @result.header
-        @result.rows.each {|row| csv << row }
+        @result.rows.each { |row| csv << row }
 
         file.tap(&:rewind)
       end

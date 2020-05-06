@@ -3,13 +3,13 @@ module Adhoq
     class Cache
       attr_reader :identifier
 
-      def initialize(cache, prefix = "", expire = 300)
+      def initialize(cache, prefix = '', expire = 300)
         @cache = cache
         @identifier = @prefix = prefix
         @expire = expire
       end
 
-      def store(suffix = nil, seed = Time.now, &block)
+      def store(suffix = nil, seed = Time.now)
         Adhoq::Storage.with_new_identifier(suffix, seed) do |identifier|
           @cache.write(@prefix + identifier, yield.read, expires_in: @expire)
         end

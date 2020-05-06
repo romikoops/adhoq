@@ -8,11 +8,11 @@ module Adhoq
     autoload 'Cache',      'adhoq/storage/cache'
 
     def with_new_identifier(suffix = nil, seed = Time.now)
-      dirname, fname_seed = ['%Y-%m-%d', '%H%M%S.%L'].map {|f| seed.strftime(f) }
+      dirname, fname_seed = ['%Y-%m-%d', '%H%M%S.%L'].map { |f| seed.strftime(f) }
 
-      basename = "%s_%05d%s" % [fname_seed, Process.pid, suffix]
+      basename = format('%s_%05d%s', fname_seed, Process.pid, suffix)
 
-      [dirname, basename].join('/').tap {|id| yield id }
+      [dirname, basename].join('/').tap { |id| yield id }
     end
     module_function :with_new_identifier
   end

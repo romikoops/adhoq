@@ -3,7 +3,6 @@ require 'json'
 module Adhoq
   module Reporter
     class Json
-
       def self.mime_type
         'application/json'
       end
@@ -22,7 +21,7 @@ module Adhoq
       private
 
       def write_content!(file)
-        json_objects = @result.rows.map {|row| Hash[*@result.header.zip(row).flatten] }
+        json_objects = @result.rows.map { |row| Hash[*@result.header.zip(row).flatten] }
 
         file.write(JSON.dump(json_objects))
       end

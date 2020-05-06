@@ -26,7 +26,12 @@ module Adhoq
 
     context 'config.storage = [:s3, ....]' do
       before do
-        reset_storage_config(:s3, 'my-bucket-name', aws_access_key_id: 'key-id', aws_secret_access_key: 'secret', region: 'paris-01')
+        reset_storage_config(
+          :s3, 'my-bucket-name',
+          aws_access_key_id: 'key-id',
+          aws_secret_access_key: 'secret',
+          region: 'paris-01'
+        )
       end
 
       specify do
@@ -36,7 +41,12 @@ module Adhoq
 
     context 'config.storage = [:google, ....]' do
       before do
-        reset_storage_config(:google, 'my-bucket-name', google_storage_access_key_id: 'key-id', google_storage_secret_access_key: 'secret', region: 'paris-01')
+        reset_storage_config(
+          :google, 'my-bucket-name',
+          google_storage_access_key_id: 'key-id',
+          google_storage_secret_access_key: 'secret',
+          region: 'paris-01'
+        )
       end
 
       specify do

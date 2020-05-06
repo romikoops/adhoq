@@ -14,11 +14,13 @@ module Adhoq
 
     def schema_version
       connection = Adhoq::Executor::ConnectionWrapper.new
-      result = connection.select("SELECT MAX(version) AS current_version FROM #{ActiveRecord::SchemaMigration.table_name}")
+      result = connection.select(
+        "SELECT MAX(version) AS current_version FROM #{ActiveRecord::SchemaMigration.table_name}"
+      )
       result.rows.first.first
     end
 
-    # TODO extract into presenter
+    # TODO: extract into presenter
     def query_friendly_name(query)
       "Query: #{query.name}"
     end
@@ -28,7 +30,7 @@ module Adhoq
     end
 
     def query_parameter_field(name)
-      text_field_tag "parameters[#{name}]", nil, class: "form-control"
+      text_field_tag "parameters[#{name}]", nil, class: 'form-control'
     end
   end
 end

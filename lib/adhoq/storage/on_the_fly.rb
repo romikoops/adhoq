@@ -1,7 +1,7 @@
 module Adhoq
   module Storage
     class OnTheFly
-      PREFIX = 'memory://adhoq-on-the-fly'
+      PREFIX = 'memory://adhoq-on-the-fly'.freeze
 
       attr_reader :identifier, :reports
 
@@ -10,7 +10,7 @@ module Adhoq
         @reports    = {}
       end
 
-      def store(suffix = nil, seed = Time.now, &block)
+      def store(suffix = nil, seed = Time.now)
         Adhoq::Storage.with_new_identifier(suffix, seed) do |identifier|
           @reports[identifier] = yield.tap(&:rewind)
         end
@@ -21,11 +21,10 @@ module Adhoq
       end
 
       def get(identifier)
-        if item = @reports.delete(identifier)
-          item.read.tap { item.close }
-        else
-          nil
-        end
+        item = @reports.delete(identifier)
+        return unless item
+
+        item.read.tap { item.close }
       end
     end
   end
