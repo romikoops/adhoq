@@ -1,0 +1,11 @@
+$('.form-group').removeClass('has-error');
+$('.help-block').remove();
+
+<% if @query.valid? %>
+<%= "window.location='#{query_path(@query)}'".html_safe %>
+<% else %>
+<% @query.errors.keys.each do |key| %>
+  $('#query_<%= key %>').closest('.form-group').addClass('has-error');
+  $("<span class=\"help-block\"><%= @query.errors[key].first %></span>" ).insertAfter($('#query_<%= key %>'));
+<% end %>
+<% end %>
