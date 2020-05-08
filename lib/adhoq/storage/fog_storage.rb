@@ -21,6 +21,10 @@ module Adhoq
       def get_raw(identifier)
         directory.files.head(identifier)
       end
+
+      def default_expires_in
+        1.minute
+      end
     end
   end
 end

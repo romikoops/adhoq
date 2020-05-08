@@ -3,25 +3,28 @@ require 'fog/google'
 module Adhoq
   module Storage
     class Google < FogStorage
+      attr_reader :bucket, :direct_download, :direct_download_options, :expires_in, :google
+
       def initialize(bucket, google_options = {})
         @bucket                  = bucket
         @direct_download         = google_options.delete(:direct_download)
         @direct_download_options = google_options.delete(:direct_download_options) || default_direct_download_options
+        @expires_in              = google_options.delete(:expires_in) || default_expires_in
         @google = Fog::Storage.new({ provider: 'Google' }.merge(google_options))
       end
 
       def direct_download?
-        @direct_download
+        direct_download
       end
 
       def identifier
-        "gs://#{@bucket}"
+        "gs://#{bucket}"
       end
 
       def get_url(report)
         get_raw(report.identifier).url(
-          1.minutes.from_now.to_i,
-          @direct_download_options.call(report)
+          expires_in.from_now.to_i,
+          direct_download_options.call(report)
         )
       end
 
@@ -30,7 +33,7 @@ module Adhoq
       def directory
         return @directory if @directory
 
-        @directory = @google.directories.get(@bucket) || @google.directories.create(key: @bucket, public: false)
+        @directory = google.directories.get(bucket) || google.directories.create(key: bucket, public: false)
       end
 
       def default_direct_download_options
