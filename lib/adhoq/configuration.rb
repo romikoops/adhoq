@@ -22,7 +22,7 @@ module Adhoq
     config_accessor :async_execution
     config_accessor :job_queue_name
 
-    config_accessor :report_name_prefix
+    config_accessor :report_file_name_prefix
 
     def callablize(name)
       if (c = config[name]).respond_to?(:call)

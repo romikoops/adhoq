@@ -19,7 +19,7 @@ module Adhoq
 
     def name
       [
-        Adhoq.config.report_name_prefix,
+        Adhoq.config.report_file_name_prefix,
         query.slug,
         created_at.strftime('%Y%m%d-%H%M%S'),
         report_format
