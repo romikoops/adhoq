@@ -19,9 +19,12 @@ load 'rails/tasks/engine.rake'
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
+
 desc 'Run all specs in spec directory (excluding plugin specs)'
 RSpec::Core::RakeTask.new
+RuboCop::RakeTask.new
 
-task default: :spec
+task default: %w[rubocop spec]
 
 Bundler::GemHelper.install_tasks
