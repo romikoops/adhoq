@@ -18,13 +18,28 @@ module Adhoq
 
     describe Storage::S3, :fog_mock do
       let(:storage) do
-        Storage::S3.new('my-adhoq-bucket', aws_access_key_id: 'key_id', aws_secret_access_key: 'access_key')
+        Storage::S3.new(
+          'my-adhoq-bucket',
+          aws_access_key_id: 'key_id',
+          aws_secret_access_key: 'access_key',
+          direct_download: true,
+          expires_in: 1.day
+        )
       end
 
       let(:identifier) do
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
 
+      specify {
+        expect(storage.bucket).to eq 'my-adhoq-bucket'
+        expect(storage.direct_download).to eq true
+        expect(storage.direct_download?).to eq true
+        expect(storage.direct_download_options).to be_a(Proc)
+        expect(storage.expires_in).to eq 1.day
+        expect(storage.s3).to be_a(Fog::AWS::Storage::Mock)
+      }
+      
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
     end
 
@@ -33,13 +48,24 @@ module Adhoq
         Storage::Google.new(
           'my_adhoq_bucket',
           google_storage_access_key_id: 'key_id',
-          google_storage_secret_access_key: 'access_key'
+          google_storage_secret_access_key: 'access_key',
+          direct_download: true,
+          expires_in: 1.day
         )
       end
 
       let(:identifier) do
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
+
+      specify {
+         expect(storage.bucket).to eq 'my_adhoq_bucket'
+         expect(storage.direct_download).to eq true
+         expect(storage.direct_download?).to eq true
+         expect(storage.direct_download_options).to be_a(Proc)
+         expect(storage.expires_in).to eq 1.day
+         expect(storage.google).to be_a(Fog::Storage::GoogleXML::Mock)
+      }
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
     end
