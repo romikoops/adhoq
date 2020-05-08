@@ -26,10 +26,6 @@ module Adhoq
 
         item.read.tap { item.close }
       end
-
-      def get_url(_report)
-        raise NotImplementedError
-      end
     end
   end
 end

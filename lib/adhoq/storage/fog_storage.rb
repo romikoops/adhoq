@@ -25,6 +25,10 @@ module Adhoq
       def default_expires_in
         1.minute
       end
+
+      def get_url(_report)
+        raise NotImplementedError
+      end
     end
   end
 end

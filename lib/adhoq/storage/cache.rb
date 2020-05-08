@@ -22,10 +22,6 @@ module Adhoq
       def get(id)
         cache.read(cache_prefix + id)
       end
-
-      def get_url(_report)
-        raise NotImplementedError
-      end
     end
   end
 end
