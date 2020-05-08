@@ -1,17 +1,17 @@
 module Adhoq
   module Storage
     class Cache
-      attr_reader :identifier
+      attr_reader :identifier, :cache, :cache_prefix, :expire
 
-      def initialize(cache, prefix = '', expire = 300)
+      def initialize(cache, cache_prefix = '', expire = 300)
         @cache = cache
-        @identifier = @prefix = prefix
+        @identifier = @cache_prefix = cache_prefix
         @expire = expire
       end
 
-      def store(suffix = nil, seed = Time.now)
-        Adhoq::Storage.with_new_identifier(suffix, seed) do |identifier|
-          @cache.write(@prefix + identifier, yield.read, expires_in: @expire)
+      def store(prefix: nil, suffix: nil, seed: Time.now)
+        Adhoq::Storage.with_new_identifier(prefix: prefix, suffix: suffix, seed: seed) do |id|
+          cache.write(cache_prefix + id, yield.read, expires_in: expire)
         end
       end
 
@@ -19,8 +19,12 @@ module Adhoq
         false
       end
 
-      def get(identifier)
-        @cache.read(@prefix + identifier)
+      def get(id)
+        cache.read(cache_prefix + id)
+      end
+
+      def get_url(_report)
+        raise NotImplementedError
       end
     end
   end

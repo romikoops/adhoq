@@ -10,7 +10,7 @@ module Adhoq
       let(:storage) { Storage::LocalFile.new(tempdir) }
 
       let(:identifier) do
-        storage.store('.txt') { StringIO.new("Hello adhoq!\n") }
+        storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
@@ -22,7 +22,7 @@ module Adhoq
       end
 
       let(:identifier) do
-        storage.store('.txt') { StringIO.new("Hello adhoq!\n") }
+        storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
@@ -38,7 +38,7 @@ module Adhoq
       end
 
       let(:identifier) do
-        storage.store('.txt') { StringIO.new("Hello adhoq!\n") }
+        storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
@@ -48,7 +48,7 @@ module Adhoq
       let(:storage) { Storage::OnTheFly.new }
 
       let!(:identifier) do
-        storage.store('.txt') { StringIO.new("Hello adhoq!\n") }
+        storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }

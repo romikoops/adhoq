@@ -10,9 +10,9 @@ module Adhoq
         @reports    = {}
       end
 
-      def store(suffix = nil, seed = Time.now)
-        Adhoq::Storage.with_new_identifier(suffix, seed) do |identifier|
-          @reports[identifier] = yield.tap(&:rewind)
+      def store(prefix: nil, suffix: nil, seed: Time.now)
+        Adhoq::Storage.with_new_identifier(prefix: prefix, suffix: suffix, seed: seed) do |identifier|
+          reports[identifier] = yield.tap(&:rewind)
         end
       end
 
@@ -21,10 +21,14 @@ module Adhoq
       end
 
       def get(identifier)
-        item = @reports.delete(identifier)
+        item = reports.delete(identifier)
         return unless item
 
         item.read.tap { item.close }
+      end
+
+      def get_url(_report)
+        raise NotImplementedError
       end
     end
   end

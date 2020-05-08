@@ -6,6 +6,7 @@ module Adhoq
     has_one    :report, dependent: :destroy, inverse_of: :execution
 
     delegate   :supported_formats, to: Adhoq::Reporter
+    delegate   :slug, to: :query, prefix: true
 
     def generate_report!
       build_report.generate!
@@ -17,7 +18,12 @@ module Adhoq
     end
 
     def name
-      [query.slug, created_at.strftime('%Y%m%d-%H%M%S'), report_format].join('.')
+      [
+        Adhoq.config.report_name_prefix,
+        query.slug,
+        created_at.strftime('%Y%m%d-%H%M%S'),
+        report_format
+      ].compact.join('.')
     end
 
     def success?

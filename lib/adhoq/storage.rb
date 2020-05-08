@@ -7,10 +7,10 @@ module Adhoq
     autoload 'OnTheFly',   'adhoq/storage/on_the_fly'
     autoload 'Cache',      'adhoq/storage/cache'
 
-    def with_new_identifier(suffix = nil, seed = Time.now)
+    def with_new_identifier(prefix: nil, suffix: nil, seed: Time.now)
       dirname, fname_seed = ['%Y-%m-%d', '%H%M%S.%L'].map { |f| seed.strftime(f) }
 
-      basename = format('%s_%05d%s', fname_seed, Process.pid, suffix)
+      basename = format('%s%s_%05d%s', prefix, fname_seed, Process.pid, suffix)
 
       [dirname, basename].join('/').tap { |id| yield id }
     end

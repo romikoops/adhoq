@@ -1,8 +1,8 @@
 module Adhoq
   module Storage
     class FogStorage
-      def store(suffix = nil, seed = Time.now)
-        Adhoq::Storage.with_new_identifier(suffix, seed) do |identifier|
+      def store(prefix: nil, suffix: nil, seed: Time.now)
+        Adhoq::Storage.with_new_identifier(prefix: prefix, suffix: suffix, seed: seed) do |identifier|
           io = yield
           io.rewind
 
