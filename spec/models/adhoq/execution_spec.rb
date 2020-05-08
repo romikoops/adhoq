@@ -10,6 +10,14 @@ module Adhoq
       query.execute!('xlsx')
     end
 
+    # check delegated attributes
+    specify { expect(execution.supported_formats).to eq %w{csv json xlsx} }
+    specify { expect(execution.query_slug).to eq execution.query.slug }
+
+    specify 'file name starts with a slug' do
+      expect(execution.name.starts_with?(execution.query_slug)).to eq true 
+    end
+
     specify { expect(execution.report).to be_on_the_fly }
 
     specify 'can get report only on execution' do
