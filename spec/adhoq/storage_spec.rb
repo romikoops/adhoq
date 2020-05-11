@@ -6,6 +6,7 @@ module Adhoq
 
       specify { expect(storage.default_expires_in).to eq 1.minute }
       specify { expect(storage.direct_download?).to eq false }
+
       specify do
         expect { storage.get_url(nil) }.to raise_error(NotImplementedError)
         expect { storage.send(:directory) }.to raise_error(NotImplementedError)
@@ -30,6 +31,10 @@ module Adhoq
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
       specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
+
+      specify do
+        expect { storage.get_url(nil) }.to raise_error(NotImplementedError)
+      end
     end
 
     describe Storage::S3, :fog_mock do
@@ -108,6 +113,10 @@ module Adhoq
       specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
 
       specify do
+        expect { storage.get_url(nil) }.to raise_error(NotImplementedError)
+      end
+
+      specify do
         expect { storage.get(identifier) }.to change { storage.reports.size }.by(-1)
       end
     end
@@ -124,6 +133,10 @@ module Adhoq
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
       specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
+
+      specify do
+        expect { storage.get_url(nil) }.to raise_error(NotImplementedError)
+      end
     end
   end
 end
