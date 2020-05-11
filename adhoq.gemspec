@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'poltergeist', '~> 1.6.0'
   s.add_development_dependency 'pry-byebug'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'rubocop', '0.79.0'
   s.add_development_dependency 'simple_xlsx_reader'
   s.add_development_dependency 'sqlite3', '>= 1.4'
   s.add_development_dependency 'tapp'
