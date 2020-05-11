@@ -1,5 +1,15 @@
 module Adhoq
   RSpec.describe Storage, type: :model do
+    describe Storage::FogStorage do
+      let(:storage) { Storage::FogStorage.new }
+
+      specify { expect(storage.default_expires_in).to eq 1.minute }
+      specify { expect(storage.direct_download?).to eq false }
+      specify do
+        expect { storage.get_url(nil) }.to raise_error(NotImplementedError)
+      end
+    end
+
     describe Storage::LocalFile do
       tempdir = __dir__ + '/../../tmp/adhoq_storage.test'
 
