@@ -30,6 +30,9 @@ module Adhoq
       before do
         Adhoq.config.report_file_name_prefix = 'prefix_test_'
       end
+      after do
+        Adhoq.config.report_file_name_prefix = nil
+      end
 
       let(:report_file_name_start) do
         [Adhoq.config.report_file_name_prefix, execution.query_slug].join('.')
