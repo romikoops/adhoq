@@ -100,5 +100,19 @@ module Adhoq
         expect { storage.get(identifier) }.to change { storage.reports.size }.by(-1)
       end
     end
+
+    describe Storage::Cache do
+      let(:storage) { Storage::Cache.new(Mock::Cache.new) }
+
+      let!(:identifier) do
+        storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
+      end
+      let(:identifier_with_prefix) do
+        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+      end
+
+      specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
+      specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
+    end
   end
 end
