@@ -7,6 +7,7 @@ module Adhoq
       specify { expect(storage.direct_download?).to eq false }
       specify do
         expect { storage.get_url(nil) }.to raise_error(NotImplementedError)
+        expect { storage.send(:directory) }.to raise_error(NotImplementedError)
       end
     end
 

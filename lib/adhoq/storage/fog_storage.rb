@@ -29,6 +29,12 @@ module Adhoq
       def get_url(_report)
         raise NotImplementedError
       end
+
+      private
+
+      def directory
+        raise NotImplementedError
+      end
     end
   end
 end
