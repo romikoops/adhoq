@@ -10,6 +10,10 @@ module Adhoq
       query.execute!('xlsx')
     end
 
+    # check delegated attributes
+    specify { expect(execution.supported_formats).to eq %w[csv json xlsx] }
+    specify { expect(execution.query_slug).to eq execution.query.slug }
+
     specify { expect(execution.report).to be_on_the_fly }
 
     specify 'can get report only on execution' do
@@ -20,6 +24,43 @@ module Adhoq
 
       # Accessable only once
       expect(execution.report.data).to be_nil
+    end
+
+    context 'when report file name prefix is specified' do
+      before do
+        Adhoq.config.report_file_name_prefix = 'prefix_test_'
+      end
+      after do
+        Adhoq.config.report_file_name_prefix = nil
+      end
+
+      let(:report_file_name_start) do
+        [Adhoq.config.report_file_name_prefix, execution.query_slug].join('.')
+      end
+
+      let(:execution) do
+        query = create(:adhoq_query, query: 'SELECT name, description FROM adhoq_queries')
+        query.execute!('xlsx')
+      end
+
+      it 'report file name starting with a prefix and slug' do
+        expect(execution.name.starts_with?(report_file_name_start)).to eq true
+      end
+    end
+
+    context 'when report file name prefix is not specified' do
+      before do
+        Adhoq.config.report_file_name_prefix = nil
+      end
+
+      let(:execution) do
+        query = create(:adhoq_query, query: 'SELECT name, description FROM adhoq_queries')
+        query.execute!('xlsx')
+      end
+
+      it 'report file name starting with a slug' do
+        expect(execution.name.starts_with?(execution.query_slug)).to eq true
+      end
     end
 
     describe '#generate_report!' do
