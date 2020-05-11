@@ -12,8 +12,12 @@ module Adhoq
       let(:identifier) do
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
+      let(:identifier_with_prefix) do
+        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+      end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
+      specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
     end
 
     describe Storage::S3, :fog_mock do
@@ -30,6 +34,9 @@ module Adhoq
       let(:identifier) do
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
+      let(:identifier_with_prefix) do
+        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+      end
 
       specify {
         expect(storage.bucket).to eq 'my-adhoq-bucket'
@@ -41,6 +48,7 @@ module Adhoq
       }
       
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
+      specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
     end
 
     describe Storage::Google, :fog_mock do
@@ -57,6 +65,9 @@ module Adhoq
       let(:identifier) do
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
+      let(:identifier_with_prefix) do
+        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+      end
 
       specify {
          expect(storage.bucket).to eq 'my_adhoq_bucket'
@@ -68,7 +79,9 @@ module Adhoq
       }
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
+      specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
     end
+
 
     describe Storage::OnTheFly do
       let(:storage) { Storage::OnTheFly.new }
@@ -76,8 +89,12 @@ module Adhoq
       let!(:identifier) do
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
+      let(:identifier_with_prefix) do
+        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+      end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
+      specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
 
       specify do
         expect { storage.get(identifier) }.to change { storage.reports.size }.by(-1)
