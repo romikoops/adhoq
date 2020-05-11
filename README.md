@@ -63,6 +63,7 @@ Adhoq.configure do |config|
   # if not set, use :on_the_fly.(default)
   config.storage       = [:local_file, Rails.root + './path/to/store/report/files']
   config.authorization = ->(controller) { controller.signed_in? }
+  config.report_file_name_prefix = 'b2b_report_'
 end
 ```
 
@@ -95,7 +96,8 @@ execution = Adhoq::AdhocExecution.new(
 storage   = Storage::S3.new(
   'my-adhoq-bucket',
   aws_access_key_id: 'key_id',
-  aws_secret_access_key: 'access_key'
+  aws_secret_access_key: 'access_key',
+  expires_in: 1.day
 )
 
 # or
@@ -103,7 +105,8 @@ storage   = Storage::S3.new(
 storage   = Storage::Google.new(
   'my-adhoq-bucket',
   google_storage_access_key_id: 'key_id',
-  google_storage_secret_access_key: 'access_key'
+  google_storage_secret_access_key: 'access_key',
+  expires_in: 1.day
 )
 
 # generate report and store it to S3, returns `key` to get report data
