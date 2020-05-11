@@ -4,5 +4,4 @@ gemspec path: '..'
 
 gem 'rails', '~> 5.2.0'
 group :test do
-  gem 'codeclimate-test-reporter', require: false
 end
