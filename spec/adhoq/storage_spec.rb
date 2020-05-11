@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module Adhoq
   RSpec.describe Storage, type: :model do
     describe Storage::FogStorage do
@@ -24,7 +25,7 @@ module Adhoq
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
       let(:identifier_with_prefix) do
-        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+        storage.store(prefix: 'prefix_', suffix: '.txt') { StringIO.new("Hello prefix!\n") }
       end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
@@ -46,18 +47,18 @@ module Adhoq
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
       let(:identifier_with_prefix) do
-        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+        storage.store(prefix: 'prefix_', suffix: '.txt') { StringIO.new("Hello prefix!\n") }
       end
 
-      specify {
+      specify do
         expect(storage.bucket).to eq 'my-adhoq-bucket'
         expect(storage.direct_download).to eq true
         expect(storage.direct_download?).to eq true
         expect(storage.direct_download_options).to be_a(Proc)
         expect(storage.expires_in).to eq 1.day
         expect(storage.s3).to be_a(Fog::AWS::Storage::Mock)
-      }
-      
+      end
+
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
       specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
     end
@@ -77,22 +78,21 @@ module Adhoq
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
       let(:identifier_with_prefix) do
-        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+        storage.store(prefix: 'prefix_', suffix: '.txt') { StringIO.new("Hello prefix!\n") }
       end
 
-      specify {
-         expect(storage.bucket).to eq 'my_adhoq_bucket'
-         expect(storage.direct_download).to eq true
-         expect(storage.direct_download?).to eq true
-         expect(storage.direct_download_options).to be_a(Proc)
-         expect(storage.expires_in).to eq 1.day
-         expect(storage.google).to be_a(Fog::Storage::GoogleXML::Mock)
-      }
+      specify do
+        expect(storage.bucket).to eq 'my_adhoq_bucket'
+        expect(storage.direct_download).to eq true
+        expect(storage.direct_download?).to eq true
+        expect(storage.direct_download_options).to be_a(Proc)
+        expect(storage.expires_in).to eq 1.day
+        expect(storage.google).to be_a(Fog::Storage::GoogleXML::Mock)
+      end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
       specify { expect(storage.get(identifier_with_prefix)).to eq "Hello prefix!\n" }
     end
-
 
     describe Storage::OnTheFly do
       let(:storage) { Storage::OnTheFly.new }
@@ -101,7 +101,7 @@ module Adhoq
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
       let(:identifier_with_prefix) do
-        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+        storage.store(prefix: 'prefix_', suffix: '.txt') { StringIO.new("Hello prefix!\n") }
       end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
@@ -119,7 +119,7 @@ module Adhoq
         storage.store(suffix: '.txt') { StringIO.new("Hello adhoq!\n") }
       end
       let(:identifier_with_prefix) do
-        storage.store(prefix: "prefix_", suffix: '.txt') { StringIO.new("Hello prefix!\n") }
+        storage.store(prefix: 'prefix_', suffix: '.txt') { StringIO.new("Hello prefix!\n") }
       end
 
       specify { expect(storage.get(identifier)).to eq "Hello adhoq!\n" }
@@ -127,3 +127,4 @@ module Adhoq
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

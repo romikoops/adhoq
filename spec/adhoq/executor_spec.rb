@@ -5,10 +5,10 @@ module Adhoq
         Executor.new('SELECT 42 AS answer')
       end
 
-      specify { 
+      specify do
         expect(executor.connection).to be_a(Adhoq::Executor::ConnectionWrapper)
         expect(executor.query).to eq 'SELECT 42 AS answer'
-      }
+      end
 
       specify { expect(executor.execute).to eq Adhoq::Result.new(%w[answer], [[42]]) }
     end

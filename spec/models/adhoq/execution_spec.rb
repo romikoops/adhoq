@@ -11,7 +11,7 @@ module Adhoq
     end
 
     # check delegated attributes
-    specify { expect(execution.supported_formats).to eq %w{csv json xlsx} }
+    specify { expect(execution.supported_formats).to eq %w[csv json xlsx] }
     specify { expect(execution.query_slug).to eq execution.query.slug }
 
     specify { expect(execution.report).to be_on_the_fly }
