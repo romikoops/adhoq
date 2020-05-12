@@ -1,4 +1,6 @@
 AllCops:
+  Exclude:
+    - 'vendor/*'
   TargetRubyVersion: 2.4
 
 Style/Documentation:
