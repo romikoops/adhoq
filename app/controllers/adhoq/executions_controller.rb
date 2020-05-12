@@ -2,7 +2,6 @@ module Adhoq
   class ExecutionsController < Adhoq::ApplicationController
     def show
       @execution = current_query.executions.where(id: params[:id], report_format: params[:format]).first!
-
       respond_report(@execution.report)
     end
 
@@ -45,7 +44,7 @@ module Adhoq
 
     def query_parameters
       if params[:parameters]
-        if params[:parameters].kind_of?(Hash)
+        if params[:parameters].is_a?(Hash)
           params[:parameters]
         else
           # for after Rails5

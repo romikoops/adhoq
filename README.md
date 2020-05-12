@@ -1,4 +1,4 @@
-Adhoq [![Build Status](https://travis-ci.org/esminc/adhoq.svg)](https://travis-ci.org/esminc/adhoq) [![Code Climate](https://codeclimate.com/github/esminc/adhoq/badges/gpa.svg)](https://codeclimate.com/github/esminc/adhoq) [![Test Coverage](https://codeclimate.com/github/esminc/adhoq/badges/coverage.svg)](https://codeclimate.com/github/esminc/adhoq/coverage)
+Adhoq [![Build Status](https://travis-ci.org/romikoops/adhoq.svg)](https://travis-ci.org/romikoops/adhoq) [![Code Climate](https://codeclimate.com/github/romikoops/adhoq/badges/gpa.svg)](https://codeclimate.com/github/romikoops/adhoq) [![Test Coverage](https://codeclimate.com/github/romikoops/adhoq/badges/coverage.svg)](https://codeclimate.com/github/romikoops/adhoq/coverage)
 ====
 
 Rails engine to generate instant reports from adhoc SQL query.
@@ -63,6 +63,7 @@ Adhoq.configure do |config|
   # if not set, use :on_the_fly.(default)
   config.storage       = [:local_file, Rails.root + './path/to/store/report/files']
   config.authorization = ->(controller) { controller.signed_in? }
+  config.report_file_name_prefix = 'b2b_report_'
 end
 ```
 
@@ -95,7 +96,17 @@ execution = Adhoq::AdhocExecution.new(
 storage   = Storage::S3.new(
   'my-adhoq-bucket',
   aws_access_key_id: 'key_id',
-  aws_secret_access_key: 'access_key'
+  aws_secret_access_key: 'access_key',
+  expires_in: 1.day
+)
+
+# or
+
+storage   = Storage::Google.new(
+  'my-adhoq-bucket',
+  google_storage_access_key_id: 'key_id',
+  google_storage_secret_access_key: 'access_key',
+  expires_in: 1.day
 )
 
 # generate report and store it to S3, returns `key` to get report data

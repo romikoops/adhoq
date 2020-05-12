@@ -17,7 +17,7 @@ Dummy::Application.configure do
   if config.respond_to?(:public_file_server)
     # after Rails5 confguration
     config.public_file_server.enabled = true
-    config.public_file_server.headers = {'Cache-Control' => 'public, max-age=3600'}
+    config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=3600' }
   else
     if config.respond_to?(:serve_static_files)
       config.serve_static_files = true
@@ -49,8 +49,8 @@ Dummy::Application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Time columns will become time zone aware in Rails 5.1.
-  if  Rails::VERSION::MAJOR >= 5
-    config.active_record.time_zone_aware_types = [:datetime, :time]
+  if Rails::VERSION::MAJOR >= 5
+    config.active_record.time_zone_aware_types = %i[datetime time]
     if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR == 2
       config.active_record.sqlite3.represent_boolean_as_integer = true
     end

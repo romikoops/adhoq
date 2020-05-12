@@ -11,8 +11,8 @@ module Adhoq
       rows << row
     end
 
-    def ==(obj)
-      header == obj.header && rows == obj.rows
+    def ==(other)
+      header == other.header && rows == other.rows
     end
   end
 end

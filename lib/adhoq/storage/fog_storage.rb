@@ -1,8 +1,8 @@
 module Adhoq
   module Storage
     class FogStorage
-      def store(suffix = nil, seed = Time.now, &block)
-        Adhoq::Storage.with_new_identifier(suffix, seed) do |identifier|
+      def store(prefix: nil, suffix: nil, seed: Time.now)
+        Adhoq::Storage.with_new_identifier(prefix: prefix, suffix: suffix, seed: seed) do |identifier|
           io = yield
           io.rewind
 
@@ -20,6 +20,20 @@ module Adhoq
 
       def get_raw(identifier)
         directory.files.head(identifier)
+      end
+
+      def default_expires_in
+        1.minute
+      end
+
+      def get_url(_report)
+        raise NotImplementedError
+      end
+
+      private
+
+      def directory
+        raise NotImplementedError
       end
     end
   end

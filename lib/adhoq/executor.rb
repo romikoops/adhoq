@@ -1,6 +1,7 @@
 module Adhoq
   class Executor
     autoload 'ConnectionWrapper', 'adhoq/executor/connection_wrapper'
+    attr_reader :connection, :query
 
     def initialize(query)
       @connection = ConnectionWrapper.new
@@ -8,11 +9,11 @@ module Adhoq
     end
 
     def execute
-      wrap_result(@connection.select(@query))
+      wrap_result(connection.select(query))
     end
 
     def explain
-      @connection.explain(@query)
+      connection.explain(query)
     end
 
     private

@@ -12,13 +12,13 @@ module Adhoq
 
       specify do
         expect(report.data).to have_values_in_xlsx_sheet([
-          %w[name description],
-          [query.name, query.description]
-        ])
+                                                           %w[name description],
+                                                           [query.name, query.description]
+                                                         ])
       end
 
       specify do
-        expect(report.name).to match /#{query.name}\.[\d\-]+\.xlsx/
+        expect(report.name).to match(/#{query.slug}\.[\d\-]+\.xlsx/)
       end
     end
   end

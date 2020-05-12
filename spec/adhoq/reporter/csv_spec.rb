@@ -22,4 +22,3 @@ module Adhoq
     end
   end
 end
-

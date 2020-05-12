@@ -35,9 +35,9 @@ module Adhoq
     private
 
     def generate_and_persist_report!(storage)
-      storage.store(".#{execution.report_format}") {
+      storage.store(prefix: "#{execution.query_slug}_", suffix: ".#{execution.report_format}") do
         Adhoq::Reporter.generate(execution)
-      }
+      end
     end
   end
 end

@@ -1,0 +1,68 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'gemfiles/vendor/bundle/**/*'
+    - 'spec/dummy/db/schema.rb'
+  TargetRubyVersion: 2.4
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'adhoq.gemspec'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'spec/**/*.rb'  
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/AccessModifierDeclarations:
+  Enabled: false
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  Exclude:
+    - 'app/**/*_controller.rb'

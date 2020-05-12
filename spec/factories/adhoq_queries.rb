@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :adhoq_query, class: 'Adhoq::Query' do
+    sequence(:slug) { |n| "slug-#{n}-" }
     name        { 'A query' }
     description { 'Simple simple SELECT' }
     query       { 'SELECT 1' }

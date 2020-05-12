@@ -1,9 +1,8 @@
-require 'axlsx'
+require 'caxlsx'
 
 module Adhoq
   module Reporter
     class Xlsx
-
       def self.mime_type
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       end
@@ -24,7 +23,7 @@ module Adhoq
       def write_result!(xlsx)
         xlsx.workbook.add_worksheet do |sheet|
           sheet.add_row @result.header
-          @result.rows.each {|row| sheet.add_row row }
+          @result.rows.each { |row| sheet.add_row row }
         end
       end
     end

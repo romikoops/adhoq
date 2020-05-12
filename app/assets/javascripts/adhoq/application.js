@@ -13,6 +13,11 @@
 //= require_self
 //= require jquery
 //= require jquery_ujs
+//= require ./codemirror/lib/codemirror
+//= require ./codemirror/mode/sql/sql
+//= require ./codemirror/addon/edit/matchbrackets
+//= require ./codemirror/addon/hint/show-hint
+//= require ./codemirror/addon/hint/sql-hint
 //= require ./bootstrap
 //= require ./previewer
 //= require ./current_tables

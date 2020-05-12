@@ -17,11 +17,12 @@ module Adhoq
     config_accessor :current_user
 
     config_accessor :database_connection
-    config_accessor :hidden_model_names
     config_accessor :hide_rows_count
 
     config_accessor :async_execution
     config_accessor :job_queue_name
+
+    config_accessor :report_file_name_prefix
 
     def callablize(name)
       if (c = config[name]).respond_to?(:call)

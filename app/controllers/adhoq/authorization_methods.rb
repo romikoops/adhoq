@@ -15,7 +15,7 @@ module Adhoq
         if failure = Adhoq.config.authorization_failure_action
           failure.call(controller)
         else
-          controller.send(:render, text: 'No such file or directory', status: :not_found)
+          controller.send(:render, plain: 'No such file or directory', status: :not_found)
         end
       end
 

@@ -16,13 +16,11 @@ module Adhoq
       specify do
         expect(JSON.parse(report_data.read)).to eq [
           {
-            'name'        => 'hello',
-            'description' =>  'English greeting message'
+            'name' => 'hello',
+            'description' => 'English greeting message'
           }
         ]
       end
     end
   end
 end
-
-

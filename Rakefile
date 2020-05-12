@@ -14,15 +14,17 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
+APP_RAKEFILE = File.expand_path('spec/dummy/Rakefile', __dir__)
 load 'rails/tasks/engine.rake'
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
-desc "Run all specs in spec directory (excluding plugin specs)"
-RSpec::Core::RakeTask.new
+require 'rubocop/rake_task'
 
-task default: :spec
+desc 'Run all specs in spec directory (excluding plugin specs)'
+RSpec::Core::RakeTask.new
+RuboCop::RakeTask.new
+
+task default: %w[rubocop spec]
 
 Bundler::GemHelper.install_tasks
-

@@ -1,0 +1,36 @@
+<div class="col-md-12">
+	<ol class="breadcrumb">
+		<li class="active">Hidden Tables</li>
+	</ol>
+
+	<h1>
+		Hidden Tables <small>&mdash; <%= @hidden_tables.count %></small>
+
+	<div class="btn-toolbar pull-right" role="toolbar">
+		<div class="btn-group" role="group">
+			<%= link_to "Add Hidden Table", new_hidden_table_path, class: "btn btn-default", style: "margin:0 7px" %>
+		</div>
+	</div>
+	</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Created At</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @hidden_tables.each do |hidden_table| %>
+				<tr>
+					<th scope="row"><%= hidden_table.id %></th>
+					<td><%= hidden_table.name %></td>
+					<td><%= hidden_table.created_at.localtime.iso8601 %></td>
+					<td><%= link_to 'Edit', edit_hidden_table_path(hidden_table) %> | <%= link_to 'Delete', hidden_table_path(hidden_table), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

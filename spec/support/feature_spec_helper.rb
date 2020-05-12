@@ -1,5 +1,5 @@
 module FeatureSpecHelper
   def table_contant(table)
-    first(table).all('tr').map {|row| row.all('th, td').map(&:text) }
+    first(table).all('tr').map { |row| row.all('th, td').map(&:text) }
   end
 end

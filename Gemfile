@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # Declare your gem's dependencies in adhoq.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -13,5 +13,4 @@ gemspec
 # To use debugger
 # gem 'debugger'
 group :test do
-  gem 'codeclimate-test-reporter', require: false
 end

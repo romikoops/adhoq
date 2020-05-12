@@ -2,6 +2,7 @@ feature 'Can see database schema at editing form' do
   include FeatureSpecHelper
 
   scenario 'See database schema' do
+    create(:hidden_table, name: 'secret_tables')
     visit adhoq.root_path
 
     click_on 'Show tables'
@@ -10,17 +11,17 @@ feature 'Can see database schema at editing form' do
       expect(page).to have_text('Current tables')
       expect(page).to have_text(/Version \d+/)
 
-      main_names_and_types = table_contant('li[data-table-name="adhoq_queries"] table').from(2).map {|row| row[1, 2] }.take(3)
+      main_names_and_types =
+        table_contant('li[data-table-name="adhoq_queries"] table').from(2).map { |row| row[2, 2] }.take(4)
 
       expect(main_names_and_types).to eq [
-        ["name",        "string"],
-        ["description", "string"],
-        ["query",       "text"],
+        %w[slug string],
+        %w[name string],
+        %w[description string],
+        %w[query text]
       ]
 
-      # NOTE spec/dummy/config/initializers/adhoq.rb:5
       expect(page).not_to have_text('secret_tables')
     end
   end
 end
-
