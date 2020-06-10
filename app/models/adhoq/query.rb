@@ -1,6 +1,7 @@
 module Adhoq
   class Query < ActiveRecord::Base
     include Adhoq::TimeBasedOrders
+    has_paper_trail on: [:update, :destroy] if defined?(has_paper_trail)
 
     has_many :executions, dependent: :destroy, inverse_of: :query
 
