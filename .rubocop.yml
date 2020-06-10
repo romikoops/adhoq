@@ -66,3 +66,12 @@ Style/FrozenStringLiteralComment:
 Naming/RescuedExceptionsVariableName:
   Exclude:
     - 'app/**/*_controller.rb'
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
