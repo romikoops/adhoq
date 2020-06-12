@@ -1,7 +1,7 @@
 module Adhoq
   class QueriesController < Adhoq::ApplicationController
     def index
-      @queries = Adhoq::Query.recent_first
+      @queries = Adhoq::Query.order(:name)
     end
 
     def show
